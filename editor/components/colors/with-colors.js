@@ -8,7 +8,7 @@ import { find, get, isFunction, isString, kebabCase, reduce, upperFirst } from '
  */
 import { createHigherOrderComponent, Component, compose } from '@wordpress/element';
 import { withSelect } from '@wordpress/data';
-import { deprecated } from '@wordpress/utils';
+import deprecated from '@wordpress/deprecated';
 
 /**
  * Internal dependencies
@@ -81,8 +81,8 @@ export default ( ...args ) => {
 						return ( colorValue ) => {
 							const colorObject = find( this.props.colors, { color: colorValue } );
 							this.props.setAttributes( {
-								[ colorAttributeName ]: colorObject && colorObject.name ? colorObject.name : undefined,
-								[ customColorAttributeName ]: colorObject && colorObject.name ? undefined : colorValue,
+								[ colorAttributeName ]: colorObject && colorObject.slug ? colorObject.slug : undefined,
+								[ customColorAttributeName ]: colorObject && colorObject.slug ? undefined : colorValue,
 							} );
 						};
 					}

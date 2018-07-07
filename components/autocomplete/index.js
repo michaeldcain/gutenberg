@@ -3,12 +3,13 @@
  */
 import classnames from 'classnames';
 import { escapeRegExp, find, filter, map, debounce } from 'lodash';
+import 'element-closest';
 
 /**
  * WordPress dependencies
  */
 import { Component, compose, renderToString } from '@wordpress/element';
-import { keycodes } from '@wordpress/utils';
+import { ENTER, ESCAPE, UP, DOWN, LEFT, RIGHT, SPACE } from '@wordpress/keycodes';
 import { __, _n, sprintf } from '@wordpress/i18n';
 
 /**
@@ -20,8 +21,6 @@ import Button from '../button';
 import Popover from '../popover';
 import withInstanceId from '../higher-order/with-instance-id';
 import withSpokenMessages from '../higher-order/with-spoken-messages';
-
-const { ENTER, ESCAPE, UP, DOWN, LEFT, RIGHT, SPACE } = keycodes;
 
 /**
  * A raw completer option.
@@ -243,6 +242,16 @@ export class Autocomplete extends Component {
 			range.setStartAfter( child );
 		}
 		range.deleteContents();
+
+		let inputEvent;
+		if ( undefined !== window.InputEvent ) {
+			inputEvent = new window.InputEvent( 'input', { bubbles: true, cancelable: false } );
+		} else {
+			// IE11 doesn't provide an InputEvent constructor.
+			inputEvent = document.createEvent( 'UIEvent' );
+			inputEvent.initEvent( 'input', true /* bubbles */, false /* cancelable */ );
+		}
+		range.commonAncestorContainer.closest( '[contenteditable=true]' ).dispatchEvent( inputEvent );
 	}
 
 	select( option ) {
@@ -253,8 +262,6 @@ export class Autocomplete extends Component {
 		if ( option.isDisabled ) {
 			return;
 		}
-
-		this.reset();
 
 		if ( getOptionCompletion ) {
 			const completion = getOptionCompletion( option.value, range, query );
@@ -278,10 +285,20 @@ export class Autocomplete extends Component {
 				}
 			}
 		}
+
+		// Reset autocomplete state after insertion rather than before
+		// so insertion events don't cause the completion menu to redisplay.
+		this.reset();
 	}
 
 	reset() {
-		this.setState( this.constructor.getInitialState() );
+		const isMounted = !! this.node;
+
+		// Autocompletions may replace the block containing this component,
+		// so we make sure it is mounted before resetting the state.
+		if ( isMounted ) {
+			this.setState( this.constructor.getInitialState() );
+		}
 	}
 
 	resetWhenSuppressed() {

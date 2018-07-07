@@ -39,7 +39,6 @@ const {
 	hasAutosave,
 	isEditedPostEmpty,
 	isEditedPostBeingScheduled,
-	getEditedPostPreviewLink,
 	getBlockDependantsCacheBust,
 	getBlockName,
 	getBlock,
@@ -1311,26 +1310,6 @@ describe( 'selectors', () => {
 			};
 
 			expect( isEditedPostBeingScheduled( state ) ).toBe( false );
-		} );
-	} );
-
-	describe( 'getEditedPostPreviewLink', () => {
-		it( 'should return null if the post has not link yet', () => {
-			const state = {
-				currentPost: {},
-			};
-
-			expect( getEditedPostPreviewLink( state ) ).toBeNull();
-		} );
-
-		it( 'should return the correct url when the post object has a preview_link', () => {
-			const state = {
-				currentPost: {
-					preview_link: 'https://andalouses.com/?p=1&preview=true',
-				},
-			};
-
-			expect( getEditedPostPreviewLink( state ) ).toBe( 'https://andalouses.com/?p=1&preview=true' );
 		} );
 	} );
 
@@ -3021,7 +3000,7 @@ describe( 'selectors', () => {
 				},
 				blockListSettings: {
 					block1: {
-						supportedBlocks: [ 'core/test-block-c' ],
+						allowedBlocks: [ 'core/test-block-c' ],
 					},
 				},
 				settings: {},
@@ -3040,7 +3019,7 @@ describe( 'selectors', () => {
 				},
 				blockListSettings: {
 					block1: {
-						supportedBlocks: [ 'core/test-block-b' ],
+						allowedBlocks: [ 'core/test-block-b' ],
 					},
 				},
 				settings: {},
@@ -3059,7 +3038,7 @@ describe( 'selectors', () => {
 				},
 				blockListSettings: {
 					block1: {
-						supportedBlocks: [],
+						allowedBlocks: [],
 					},
 				},
 				settings: {},
@@ -3627,12 +3606,51 @@ describe( 'selectors', () => {
 	} );
 
 	describe( 'getTemplateLock', () => {
-		it( 'should return the template object', () => {
+		it( 'should return the general template lock if no uid was set', () => {
 			const state = {
 				settings: { templateLock: 'all' },
 			};
 
 			expect( getTemplateLock( state ) ).toBe( 'all' );
+		} );
+
+		it( 'should return null if the specified uid was not found ', () => {
+			const state = {
+				settings: { templateLock: 'all' },
+				blockListSettings: {
+					chicken: {
+						templateLock: 'insert',
+					},
+				},
+			};
+
+			expect( getTemplateLock( state, 'ribs' ) ).toBe( null );
+		} );
+
+		it( 'should return null if template lock was not set on the specified block', () => {
+			const state = {
+				settings: { templateLock: 'all' },
+				blockListSettings: {
+					chicken: {
+						test: 'tes1t',
+					},
+				},
+			};
+
+			expect( getTemplateLock( state, 'ribs' ) ).toBe( null );
+		} );
+
+		it( 'should return the template lock for the specified uid', () => {
+			const state = {
+				settings: { templateLock: 'all' },
+				blockListSettings: {
+					chicken: {
+						templateLock: 'insert',
+					},
+				},
+			};
+
+			expect( getTemplateLock( state, 'chicken' ) ).toBe( 'insert' );
 		} );
 	} );
 

@@ -1,5 +1,10 @@
 Gutenberg's deprecation policy is intended to support backwards-compatibility for two minor releases, when possible. The current deprecations are listed below and are grouped by _the version at which they will be removed completely_. If your plugin depends on these behaviors, you must update to the recommended alternative before the noted version.
 
+## 3.4.0
+
+ - `focusOnMount` prop in the `Popover` component has been changed from `Boolean`-only to an enum-style property that accepts `"firstElement"`, `"container"`, or `false`. Please convert any `<Popover focusOnMount />` usage to `<Popover focusOnMount="firstElement" />`.
+ - `wp.utils.keycodes` utilities are removed. Please use `wp.keycodes` instead.
+
 ## 3.3.0
 
  - `useOnce: true` has been removed from the Block API. Please use `supports.multiple: false` instead.
@@ -8,12 +13,14 @@ Gutenberg's deprecation policy is intended to support backwards-compatibility fo
  - `blocks.BlockEdit` filter removed. Please use `editor.BlockEdit` instead.
  - `blocks.BlockListBlock` filter removed. Please use `editor.BlockListBlock` instead.
  - `blocks.MediaUpload` filter removed. Please use `editor.MediaUpload` instead.
+ - `property` source removed. Please use equivalent `text`, `html`, or `attribute` source, or comment attribute instead.
 
 ## 3.2.0
 
  - `wp.data.withRehydratation` has been renamed to `wp.data.withRehydration`.
  - The `wp.editor.ImagePlaceholder` component is removed. Please use `wp.editor.MediaPlaceholder` instead.
  - `wp.utils.deprecated` function removed. Please use `wp.deprecated` instead.
+ - `wp.utils.blob` removed. Please use `wp.blob` instead.
  - `getInserterItems`: the `allowedBlockTypes` argument was removed and the `parentUID` argument was added.
  - `getFrecentInserterItems` selector removed. Please use `getInserterItems` instead.
  - `getSupportedBlocks` selector removed. Please use `canInsertBlockType` instead.

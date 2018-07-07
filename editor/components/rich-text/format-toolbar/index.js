@@ -11,17 +11,16 @@ import {
 	withSpokenMessages,
 	Popover,
 } from '@wordpress/components';
-import { keycodes } from '@wordpress/utils';
+import { ESCAPE, LEFT, RIGHT, UP, DOWN, BACKSPACE, ENTER, displayShortcut } from '@wordpress/keycodes';
 import { prependHTTP } from '@wordpress/url';
 
 /**
  * Internal dependencies
  */
 import './style.scss';
+import PositionedAtSelection from './positioned-at-selection';
 import UrlInput from '../../url-input';
 import { filterURLForDisplay } from '../../../utils/url';
-
-const { ESCAPE, LEFT, RIGHT, UP, DOWN, BACKSPACE, ENTER, displayShortcut } = keycodes;
 
 const FORMATTING_CONTROLS = [
 	{
@@ -177,7 +176,7 @@ class FormatToolbar extends Component {
 	}
 
 	render() {
-		const { formats, focusPosition, enabledControls = DEFAULT_CONTROLS, customControls = [], selectedNodeId } = this.props;
+		const { formats, enabledControls = DEFAULT_CONTROLS, customControls = [], selectedNodeId } = this.props;
 		const { linkValue, settingsVisible, opensInNewWindow } = this.state;
 		const isAddingLink = formats.link && formats.link.isAdding;
 
@@ -218,10 +217,10 @@ class FormatToolbar extends Component {
 
 				{ ( isAddingLink || formats.link ) && (
 					<Fill name="RichText.Siblings">
-						<div className="editor-format-toolbar__link-container" style={ { ...focusPosition } }>
+						<PositionedAtSelection className="editor-format-toolbar__link-container">
 							<Popover
 								position="bottom center"
-								focusOnMount={ !! isAddingLink }
+								focusOnMount={ isAddingLink ? 'firstElement' : false }
 								key={ selectedNodeId /* Used to force rerender on change */ }
 							>
 								{ isAddingLink && (
@@ -277,7 +276,7 @@ class FormatToolbar extends Component {
 								/* eslint-enable jsx-a11y/no-static-element-interactions */
 								) }
 							</Popover>
-						</div>
+						</PositionedAtSelection>
 					</Fill>
 				) }
 			</div>
