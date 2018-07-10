@@ -25,9 +25,8 @@ import {
 	withColors,
 	AlignmentToolbar,
 	BlockControls,
-	ContrastChecker,
 	InspectorControls,
-	PanelColor,
+	PanelTextColor,
 	RichText,
 } from '@wordpress/editor';
 import { createBlock, getPhrasingContentSchema } from '@wordpress/blocks';
@@ -232,26 +231,23 @@ class ParagraphBlock extends Component {
 							help={ this.getDropCapHelp }
 						/>
 					</PanelBody>
-					<PanelColor
-						colorValue={ backgroundColor.value }
-						initialOpen={ false }
-						title={ __( 'Background Color' ) }
-						onChange={ setBackgroundColor }
-					/>
-					<PanelColor
-						colorValue={ textColor.value }
-						initialOpen={ false }
-						title={ __( 'Text Color' ) }
-						onChange={ setTextColor }
-					/>
-					<ContrastChecker
-						textColor={ textColor.value }
-						backgroundColor={ backgroundColor.value }
-						{ ...{
-							fallbackBackgroundColor,
-							fallbackTextColor,
+					<PanelTextColor
+						title={ __( 'Color Settings' ) }
+						textColorProps={ {
+							value: textColor.value,
+							onChange: setTextColor,
 						} }
-						isLargeText={ fontSize >= 18 }
+						backgroundColorProps={ {
+							value: backgroundColor.value,
+							onChange: setBackgroundColor,
+						} }
+						contrastCheckerProps={ {
+							isLargeText: fontSize >= 18,
+							textColor: textColor.value,
+							backgroundColor: backgroundColor.value,
+							fallbackTextColor,
+							fallbackBackgroundColor,
+						} }
 					/>
 				</InspectorControls>
 				<RichText
