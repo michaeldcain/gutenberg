@@ -1,14 +1,14 @@
 .editor-panel-text-color {
-	&__panel-color-area {
+	.component-color-area {
+		vertical-align: text-bottom;
+	}
+
+	&__panel-title .component-color-area {
 		display: inline-block;
 	}
 
-	&.is-opened &__panel-color-area {
+	&.is-opened &__panel-title .component-color-area {
 		display: none;
-	}
-
-	&__control-color-area {
-		vertical-align: text-bottom;
 	}
 
 	&__color-palette {

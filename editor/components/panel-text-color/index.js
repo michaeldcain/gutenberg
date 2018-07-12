@@ -7,7 +7,7 @@ import {
 	BaseControl,
 	ColorArea,
 } from '@wordpress/components';
-import { compose, Fragment } from '@wordpress/element';
+import { compose } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 
 /**
@@ -32,24 +32,23 @@ const getColorAreaProps = ( colors, colorValue, ariaLabelTemplate ) => {
 	};
 };
 
-const getTitle = ( title, colorAreaProps, colorAreaClassName ) => (
-	<Fragment>
+const getTitle = ( className, title, colorAreaProps ) => (
+	<span className={ className }>
 		{ title }
 		{ colorAreaProps.map( ( props, index ) => (
 			props && <ColorArea
 				key={ index }
-				className={ colorAreaClassName }
 				{ ...props }
 			/>
 		) ) }
-	</Fragment>
+	</span>
 );
 
 function PanelTextColor( { title, colors, backgroundColorProps, textColorProps, contrastCheckerProps } ) {
 	const baseClassName = 'editor-panel-text-color';
-	const titleColorAreaClasses = `${ baseClassName }__panel-color-area`;
-	const controlColorAreaClasses = `${ baseClassName }__control-color-area`;
-	const colorPaletteClasses = `${ baseClassName }__color-palette`;
+	const panelTitleClassName = `${ baseClassName }__panel-title`;
+	const controlTitleClassName = `${ baseClassName }__control-title`;
+	const colorPaletteClassName = `${ baseClassName }__color-palette`;
 
 	// translators: %s: The name of the color e.g: "vivid red" or color hex code if name is not available e.g: "#f00".
 	const backgroundAriaLabelTemplate = __( '(current background color: %s)' );
@@ -64,15 +63,15 @@ function PanelTextColor( { title, colors, backgroundColorProps, textColorProps, 
 	return (
 		<PanelBody
 			className="editor-panel-text-color"
-			title={ getTitle( title, [ backgroundColorAreaProps, textColorAreaProps ], titleColorAreaClasses ) }
+			title={ getTitle( panelTitleClassName, title, [ backgroundColorAreaProps, textColorAreaProps ] ) }
 		>
 			<BaseControl
-				label={ getTitle( __( 'Background Color' ), [ backgroundColorAreaProps ], controlColorAreaClasses ) } >
-				<ColorPalette className={ colorPaletteClasses } { ...backgroundColorProps } />
+				label={ getTitle( controlTitleClassName, __( 'Background Color' ), [ backgroundColorAreaProps ] ) } >
+				<ColorPalette className={ colorPaletteClassName } { ...backgroundColorProps } />
 			</BaseControl>
 
-			<BaseControl label={ getTitle( __( 'Text Color' ), [ textColorAreaProps ], controlColorAreaClasses ) } >
-				<ColorPalette className={ colorPaletteClasses } { ...textColorProps } />
+			<BaseControl label={ getTitle( controlTitleClassName, __( 'Text Color' ), [ textColorAreaProps ] ) } >
+				<ColorPalette className={ colorPaletteClassName } { ...textColorProps } />
 			</BaseControl>
 
 			<ContrastChecker { ...contrastCheckerProps } />
