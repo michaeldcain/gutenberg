@@ -35,8 +35,8 @@ const getColorAreaProps = ( colors, colorValue, ariaLabelTemplate ) => {
 const getTitle = ( className, title, colorAreaProps ) => (
 	<span className={ className }>
 		{ title }
-		{ colorAreaProps.map( ( props, index ) => (
-			props && <ColorArea
+		{ colorAreaProps.map( ( props, index ) => props && (
+			<ColorArea
 				key={ index }
 				{ ...props }
 			/>
