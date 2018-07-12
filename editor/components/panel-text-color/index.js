@@ -52,13 +52,11 @@ function PanelTextColor( { title, colors, backgroundColorProps, textColorProps, 
 
 	// translators: %s: The name of the color e.g: "vivid red" or color hex code if name is not available e.g: "#f00".
 	const backgroundAriaLabelTemplate = __( '(current background color: %s)' );
-	const backgroundColorValue = backgroundColorProps.value;
-	const backgroundColorAreaProps = getColorAreaProps( colors, backgroundColorValue, backgroundAriaLabelTemplate );
+	const backgroundColorAreaProps = getColorAreaProps( colors, backgroundColorProps.value, backgroundAriaLabelTemplate );
 
 	// translators: %s: The name of the color e.g: "vivid red" or color hex code if name is not available e.g: "#f00".
 	const textAriaLabelTemplate = __( '(current text color: %s)' );
-	const textColorValue = textColorProps.value;
-	const textColorAreaProps = getColorAreaProps( colors, textColorValue, textAriaLabelTemplate );
+	const textColorAreaProps = getColorAreaProps( colors, textColorProps.value, textAriaLabelTemplate );
 
 	return (
 		<PanelBody
