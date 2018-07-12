@@ -10,7 +10,7 @@ import './style.scss';
 
 const ColorArea = ( { ariaLabel, colorValue, className } ) => (
 	<span
-		className={ classnames( 'color-area', className ) }
+		className={ classnames( 'component-color-area', className ) }
 		aria-label={ ariaLabel }
 		style={ { background: colorValue } }
 	/>
