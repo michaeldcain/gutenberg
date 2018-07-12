@@ -1,9 +1,18 @@
 .editor-panel-text-color {
-	&__panel-title-color-area {
+	&__panel-color-area {
 		display: inline-block;
 	}
 
-	&.is-opened &__panel-title-color-area {
+	&.is-opened &__panel-color-area {
 		display: none;
+	}
+
+	&__control-color-area {
+		vertical-align: text-bottom;
+	}
+
+	&__color-palette {
+		margin-top: .6rem;
+		margin-bottom: 1.4rem;
 	}
 }

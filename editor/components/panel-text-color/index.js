@@ -46,7 +46,10 @@ const getTitle = ( title, colorAreaProps, colorAreaClassName ) => (
 );
 
 function PanelTextColor( { title, colors, backgroundColorProps, textColorProps, contrastCheckerProps } ) {
-	const titleColorAreaClassName = 'editor-panel-text-color__panel-title-color-area';
+	const baseClassName = 'editor-panel-text-color';
+	const titleColorAreaClasses = `${ baseClassName }__panel-color-area`;
+	const controlColorAreaClasses = `${ baseClassName }__control-color-area`;
+	const colorPaletteClasses = `${ baseClassName }__color-palette`;
 
 	// translators: %s: The name of the color e.g: "vivid red" or color hex code if name is not available e.g: "#f00".
 	const backgroundAriaLabelTemplate = __( '(current background color: %s)' );
@@ -61,14 +64,15 @@ function PanelTextColor( { title, colors, backgroundColorProps, textColorProps, 
 	return (
 		<PanelBody
 			className="editor-panel-text-color"
-			title={ getTitle( title, [ backgroundColorAreaProps, textColorAreaProps ], titleColorAreaClassName ) }
+			title={ getTitle( title, [ backgroundColorAreaProps, textColorAreaProps ], titleColorAreaClasses ) }
 		>
-			<BaseControl label={ getTitle( __( 'Background Color' ), [ backgroundColorAreaProps ] ) }>
-				<ColorPalette { ...backgroundColorProps } />
+			<BaseControl
+				label={ getTitle( __( 'Background Color' ), [ backgroundColorAreaProps ], controlColorAreaClasses ) } >
+				<ColorPalette className={ colorPaletteClasses } { ...backgroundColorProps } />
 			</BaseControl>
 
-			<BaseControl label={ getTitle( __( 'Text Color' ), [ textColorAreaProps ] ) } >
-				<ColorPalette { ...textColorProps } />
+			<BaseControl label={ getTitle( __( 'Text Color' ), [ textColorAreaProps ], controlColorAreaClasses ) } >
+				<ColorPalette className={ colorPaletteClasses } { ...textColorProps } />
 			</BaseControl>
 
 			<ContrastChecker { ...contrastCheckerProps } />
