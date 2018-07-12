@@ -26,7 +26,7 @@ import {
 	AlignmentToolbar,
 	BlockControls,
 	InspectorControls,
-	PanelTextColor,
+	PanelColorSettings,
 	RichText,
 } from '@wordpress/editor';
 import { createBlock, getPhrasingContentSchema } from '@wordpress/blocks';
@@ -231,7 +231,7 @@ class ParagraphBlock extends Component {
 							help={ this.getDropCapHelp }
 						/>
 					</PanelBody>
-					<PanelTextColor
+					<PanelColorSettings
 						title={ __( 'Color Settings' ) }
 						textColorProps={ {
 							value: textColor.value,

@@ -44,8 +44,8 @@ const getTitle = ( className, title, colorAreaProps ) => (
 	</span>
 );
 
-function PanelTextColor( { title, colors, backgroundColorProps, textColorProps, contrastCheckerProps } ) {
-	const baseClassName = 'editor-panel-text-color';
+function PanelColorSettings( { title, colors, backgroundColorProps, textColorProps, contrastCheckerProps } ) {
+	const baseClassName = 'editor-panel-color-settings';
 	const panelTitleClassName = `${ baseClassName }__panel-title`;
 	const controlTitleClassName = `${ baseClassName }__control-title`;
 	const colorPaletteClassName = `${ baseClassName }__color-palette`;
@@ -60,7 +60,7 @@ function PanelTextColor( { title, colors, backgroundColorProps, textColorProps, 
 
 	return (
 		<PanelBody
-			className="editor-panel-text-color"
+			className={ baseClassName }
 			title={ getTitle( panelTitleClassName, title, [ backgroundColorAreaProps, textColorAreaProps ] ) }
 		>
 			<BaseControl
@@ -80,4 +80,4 @@ function PanelTextColor( { title, colors, backgroundColorProps, textColorProps, 
 export default compose( [
 	withColorContext,
 	ifCondition( ( { hasColorsToChoose } ) => hasColorsToChoose ),
-] )( PanelTextColor );
+] )( PanelColorSettings );
