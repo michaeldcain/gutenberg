@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PanelColorSettings matches the snapshot 1`] = `
+<PanelBody
+  className="editor-panel-color-settings"
+  title={
+    <span
+      className="editor-panel-color-settings__panel-title"
+    >
+      Test Title
+      <ColorArea
+        ariaLabel="(current background color: #000)"
+        colorValue="#000"
+      />
+      <ColorArea
+        ariaLabel="(current text color: #111)"
+        colorValue="#111"
+      />
+    </span>
+  }
+>
+  <BaseControl
+    label={
+      <span
+        className="editor-panel-color-settings__control-title"
+      >
+        Background Color
+        <ColorArea
+          ariaLabel="(current background color: #000)"
+          colorValue="#000"
+        />
+      </span>
+    }
+  >
+    <WithColorContext(ColorPalette)
+      className="editor-panel-color-settings__color-palette"
+      onChange={[Function]}
+      value="#000"
+    />
+  </BaseControl>
+  <BaseControl
+    label={
+      <span
+        className="editor-panel-color-settings__control-title"
+      >
+        Text Color
+        <ColorArea
+          ariaLabel="(current text color: #111)"
+          colorValue="#111"
+        />
+      </span>
+    }
+  >
+    <WithColorContext(ColorPalette)
+      className="editor-panel-color-settings__color-palette"
+      onChange={[Function]}
+      value="#111"
+    />
+  </BaseControl>
+  <ContrastChecker
+    backgroundColor="#000"
+    fallbackBackgroundColor="#fff"
+    fallbackTextColor="#000"
+    isLargeText={false}
+    textColor="#111"
+  />
+</PanelBody>
+`;
