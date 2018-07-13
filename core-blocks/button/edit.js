@@ -36,11 +36,13 @@ const { getComputedStyle } = window;
 
 const FallbackStyles = withFallbackStyles( ( node, ownProps ) => {
 	const { textColor, backgroundColor } = ownProps;
+	const backgroundColorValue = backgroundColor && backgroundColor.value;
+	const textColorValue = textColor && textColor.value;
 	//avoid the use of querySelector if textColor color is known and verify if node is available.
-	const textNode = ! textColor && node ? node.querySelector( '[contenteditable="true"]' ) : null;
+	const textNode = ! textColorValue && node ? node.querySelector( '[contenteditable="true"]' ) : null;
 	return {
-		fallbackBackgroundColor: backgroundColor || ! node ? undefined : getComputedStyle( node ).backgroundColor,
-		fallbackTextColor: textColor || ! textNode ? undefined : getComputedStyle( textNode ).color,
+		fallbackBackgroundColor: backgroundColorValue || ! node ? undefined : getComputedStyle( node ).backgroundColor,
+		fallbackTextColor: textColorValue || ! textNode ? undefined : getComputedStyle( textNode ).color,
 	};
 } );
 
