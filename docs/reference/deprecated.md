@@ -12,6 +12,8 @@ Gutenberg's deprecation policy is intended to support backwards-compatibility fo
  - `wp.element.createHigherOrderComponent` has been removed. Please use `wp.compose.createHigherOrderComponent` instead.
  - `wp.utils.buildTermsTree` has been removed.
  - `wp.utils.decodeEntities` has been removed. Please use `wp.htmlEntities.decodeEntities` instead.
+ - `wp.editor.getColorName` has been removed. Please use `wp.editor.getColorObjectByValue` instead.
+ - `value` property in color objects passed by `wp.editor.withColors` has been removed. Please use color property instead.
 
 ## 3.4.0
 
