@@ -2,12 +2,11 @@
  * WordPress dependencies
  */
 import {
-	ifCondition,
 	PanelBody,
 	BaseControl,
 	ColorArea,
 } from '@wordpress/components';
-import { compose } from '@wordpress/element';
+import { ifCondition, compose } from '@wordpress/compose';
 import { __, sprintf } from '@wordpress/i18n';
 
 /**
