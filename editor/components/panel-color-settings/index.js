@@ -47,11 +47,11 @@ const TextWithColorIndicators = ( { className, text, colorIndicatorProps } ) => 
 	</span>
 );
 
-const ColorPalleteControl = ( { label, colors, ...settings } ) => {
+const ColorPaletteControl = ( { label, colors, ...settings } ) => {
 	const colorIndicatorProps = getColorIndicatorProps( colors, settings );
 	const labelElement = (
 		<TextWithColorIndicators
-			className="editor-panel-color-settings__color-pallete"
+			className="editor-panel-color-settings__color-palette"
 			text={ label }
 			colorIndicatorProps={ [ colorIndicatorProps ] }
 		/>
@@ -61,7 +61,7 @@ const ColorPalleteControl = ( { label, colors, ...settings } ) => {
 		<BaseControl
 			label={ labelElement } >
 			<ColorPalette
-				className="editor-panel-color-settings__color-pallete"
+				className="editor-panel-color-settings__color-palette"
 				{ ...pick( settings, [ 'value', 'onChange' ] ) }
 			/>
 		</BaseControl>
@@ -90,7 +90,7 @@ export function PanelColorSettings( { title, colors, colorSettings, children } )
 		>
 
 			{ colorSettings.map( ( settings, index ) => (
-				<ColorPalleteControl
+				<ColorPaletteControl
 					key={ index }
 					colors={ colors }
 					{ ...settings } />

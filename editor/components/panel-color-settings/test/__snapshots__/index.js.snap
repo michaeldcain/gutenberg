@@ -4,22 +4,25 @@ exports[`PanelColorSettings matches the snapshot 1`] = `
 <PanelBody
   className="editor-panel-color-settings"
   title={
-    <span
+    <TextWithColorIndicators
       className="editor-panel-color-settings__panel-title"
-    >
-      Test Title
-      <ColorIndicator
-        ariaLabel="black"
-        colorValue="#000"
-      />
-      <ColorIndicator
-        ariaLabel="nearly black"
-        colorValue="#111"
-      />
-    </span>
+      colorIndicatorProps={
+        Array [
+          Object {
+            "ariaLabel": "black",
+            "colorValue": "#000",
+          },
+          Object {
+            "ariaLabel": "nearly black",
+            "colorValue": "#111",
+          },
+        ]
+      }
+      text="Test Title"
+    />
   }
 >
-  <ColorPalleteControl
+  <ColorPaletteControl
     colorIndicatorAriaLabel="black"
     colors={Array []}
     key="0"
@@ -27,7 +30,7 @@ exports[`PanelColorSettings matches the snapshot 1`] = `
     onChange={[Function]}
     value="#000"
   />
-  <ColorPalleteControl
+  <ColorPaletteControl
     colorIndicatorAriaLabel="nearly black"
     colors={Array []}
     key="1"
