@@ -234,6 +234,7 @@ class ParagraphBlock extends Component {
 					</PanelBody>
 					<PanelColorSettings
 						title={ __( 'Color Settings' ) }
+						initialOpen={ false }
 						colorSettings={ [
 							{
 								value: backgroundColor.value,

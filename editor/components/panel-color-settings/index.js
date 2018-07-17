@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import { omit } from 'lodash';
+
+/**
  * WordPress dependencies
  */
 import {
@@ -14,7 +19,7 @@ import ColorPaletteControl from '../color-palette/control';
 import TextWithColorIndicators from '../text-with-color-indicators';
 import withColorContext from '../color-palette/with-color-context';
 
-export function PanelColorSettings( { title, colorSettings, children } ) {
+export function PanelColorSettings( { title, colorSettings, children, ...props } ) {
 	const className = 'editor-panel-color-settings';
 
 	const titleElement = (
@@ -30,6 +35,7 @@ export function PanelColorSettings( { title, colorSettings, children } ) {
 		<PanelBody
 			className={ className }
 			title={ titleElement }
+			{ ...omit( props, 'colors' ) }
 		>
 			{ colorSettings.map( ( settings, index ) => (
 				<ColorPaletteControl key={ index } { ...settings } />
