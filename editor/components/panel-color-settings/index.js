@@ -35,9 +35,9 @@ const getColorIndicatorProps = ( colors, { value, colorIndicatorAriaLabel } ) =>
 	};
 };
 
-const getTitle = ( className, title, colorIndicatorProps ) => (
+const TextWithColorIndicators = ( { className, text, colorIndicatorProps } ) => (
 	<span className={ className }>
-		{ title }
+		{ text }
 		{ colorIndicatorProps.map( ( props, index ) => props && (
 			<ColorIndicator
 				key={ index }
@@ -49,7 +49,13 @@ const getTitle = ( className, title, colorIndicatorProps ) => (
 
 const ColorPalleteControl = ( { label, colors, ...settings } ) => {
 	const colorIndicatorProps = getColorIndicatorProps( colors, settings );
-	const labelElement = getTitle( 'editor-panel-color-settings__color-pallete', label, [ colorIndicatorProps ] );
+	const labelElement = (
+		<TextWithColorIndicators
+			className="editor-panel-color-settings__color-pallete"
+			text={ label }
+			colorIndicatorProps={ [ colorIndicatorProps ] }
+		/>
+	);
 
 	return (
 		<BaseControl
@@ -63,17 +69,24 @@ const ColorPalleteControl = ( { label, colors, ...settings } ) => {
 };
 
 export function PanelColorSettings( { title, colors, colorSettings, children } ) {
-	const baseClassName = 'editor-panel-color-settings';
-	const panelTitleClassName = `${ baseClassName }__panel-title`;
+	const className = 'editor-panel-color-settings';
 
 	const titleColorIndicatorProps = colorSettings.map( ( settings ) => {
 		return getColorIndicatorProps( colors, settings );
 	} );
 
+	const titleElement = (
+		<TextWithColorIndicators
+			className="editor-panel-color-settings__panel-title"
+			text={ title }
+			colorIndicatorProps={ titleColorIndicatorProps }
+		/>
+	);
+
 	return (
 		<PanelBody
-			className={ baseClassName }
-			title={ getTitle( panelTitleClassName, title, titleColorIndicatorProps ) }
+			className={ className }
+			title={ titleElement }
 		>
 
 			{ colorSettings.map( ( settings, index ) => (
