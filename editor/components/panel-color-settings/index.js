@@ -11,6 +11,7 @@ import {
 	BaseControl,
 	ColorIndicator,
 } from '@wordpress/components';
+import { Fragment } from '@wordpress/element';
 import { ifCondition, compose } from '@wordpress/compose';
 import { sprintf } from '@wordpress/i18n';
 
@@ -35,8 +36,8 @@ const getColorIndicatorProps = ( colors, { value, colorIndicatorAriaLabel } ) =>
 	};
 };
 
-const TextWithColorIndicators = ( { className, text, colorIndicatorProps } ) => (
-	<span className={ className }>
+const TextWithColorIndicators = ( { text, colorIndicatorProps } ) => (
+	<Fragment>
 		{ text }
 		{ colorIndicatorProps.map( ( props, index ) => props && (
 			<ColorIndicator
@@ -44,14 +45,13 @@ const TextWithColorIndicators = ( { className, text, colorIndicatorProps } ) => 
 				{ ...props }
 			/>
 		) ) }
-	</span>
+	</Fragment>
 );
 
 const ColorPaletteControl = ( { label, colors, ...settings } ) => {
 	const colorIndicatorProps = getColorIndicatorProps( colors, settings );
 	const labelElement = (
 		<TextWithColorIndicators
-			className="editor-panel-color-settings__color-palette"
 			text={ label }
 			colorIndicatorProps={ [ colorIndicatorProps ] }
 		/>
