@@ -6,11 +6,11 @@ import { shallow } from 'enzyme';
 /**
  * Internal dependencies
  */
-import ColorArea from '../';
+import ColorIndicator from '../';
 
-describe( 'ColorArea', () => {
+describe( 'ColorIndicator', () => {
 	it( 'matches the snapshot', () => {
-		const wrapper = shallow( <ColorArea ariaLabel="sample label" colorValue="#fff" /> );
+		const wrapper = shallow( <ColorIndicator ariaLabel="sample label" colorValue="#fff" /> );
 
 		expect( wrapper ).toMatchSnapshot();
 	} );

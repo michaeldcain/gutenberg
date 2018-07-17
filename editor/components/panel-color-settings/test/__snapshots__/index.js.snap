@@ -8,11 +8,11 @@ exports[`PanelColorSettings matches the snapshot 1`] = `
       className="editor-panel-color-settings__panel-title"
     >
       Test Title
-      <ColorArea
+      <ColorIndicator
         ariaLabel="(current background color: #000)"
         colorValue="#000"
       />
-      <ColorArea
+      <ColorIndicator
         ariaLabel="(current text color: #111)"
         colorValue="#111"
       />
@@ -25,7 +25,7 @@ exports[`PanelColorSettings matches the snapshot 1`] = `
         className="editor-panel-color-settings__control-title"
       >
         Background Color
-        <ColorArea
+        <ColorIndicator
           ariaLabel="(current background color: #000)"
           colorValue="#000"
         />
@@ -44,7 +44,7 @@ exports[`PanelColorSettings matches the snapshot 1`] = `
         className="editor-panel-color-settings__control-title"
       >
         Text Color
-        <ColorArea
+        <ColorIndicator
           ariaLabel="(current text color: #111)"
           colorValue="#111"
         />

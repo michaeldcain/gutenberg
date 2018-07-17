@@ -8,12 +8,12 @@ import classnames from 'classnames';
  */
 import './style.scss';
 
-const ColorArea = ( { ariaLabel, colorValue, className } ) => (
+const ColorIndicator = ( { ariaLabel, colorValue, className } ) => (
 	<span
-		className={ classnames( 'component-color-area', className ) }
+		className={ classnames( 'component-color-indicator', className ) }
 		aria-label={ ariaLabel }
 		style={ { background: colorValue } }
 	/>
 );
 
-export default ColorArea;
+export default ColorIndicator;

@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ColorArea matches the snapshot 1`] = `
+exports[`ColorIndicator matches the snapshot 1`] = `
 <span
   aria-label="sample label"
-  className="component-color-area"
+  className="component-color-indicator"
   style={
     Object {
       "background": "#fff",

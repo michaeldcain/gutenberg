@@ -4,7 +4,7 @@
 import {
 	PanelBody,
 	BaseControl,
-	ColorArea,
+	ColorIndicator,
 } from '@wordpress/components';
 import { ifCondition, compose } from '@wordpress/compose';
 import { __, sprintf } from '@wordpress/i18n';
@@ -18,7 +18,7 @@ import ColorPalette from '../color-palette';
 import withColorContext from '../color-palette/with-color-context';
 import { getColorName } from '../colors';
 
-const getColorAreaProps = ( colors, colorValue, ariaLabelTemplate ) => {
+const getColorIndicatorProps = ( colors, colorValue, ariaLabelTemplate ) => {
 	if ( ! colorValue ) {
 		return;
 	}
@@ -31,11 +31,11 @@ const getColorAreaProps = ( colors, colorValue, ariaLabelTemplate ) => {
 	};
 };
 
-const getTitle = ( className, title, colorAreaProps ) => (
+const getTitle = ( className, title, colorIndicatorProps ) => (
 	<span className={ className }>
 		{ title }
-		{ colorAreaProps.map( ( props, index ) => props && (
-			<ColorArea
+		{ colorIndicatorProps.map( ( props, index ) => props && (
+			<ColorIndicator
 				key={ index }
 				{ ...props }
 			/>
@@ -51,23 +51,23 @@ export function PanelColorSettings( { title, colors, backgroundColorProps, textC
 
 	// translators: %s: The name of the color e.g: "vivid red" or color hex code if name is not available e.g: "#f00".
 	const backgroundAriaLabelTemplate = __( '(current background color: %s)' );
-	const backgroundColorAreaProps = getColorAreaProps( colors, backgroundColorProps.value, backgroundAriaLabelTemplate );
+	const backgroundColorIndicatorProps = getColorIndicatorProps( colors, backgroundColorProps.value, backgroundAriaLabelTemplate );
 
 	// translators: %s: The name of the color e.g: "vivid red" or color hex code if name is not available e.g: "#f00".
 	const textAriaLabelTemplate = __( '(current text color: %s)' );
-	const textColorAreaProps = getColorAreaProps( colors, textColorProps.value, textAriaLabelTemplate );
+	const textColorIndicatorProps = getColorIndicatorProps( colors, textColorProps.value, textAriaLabelTemplate );
 
 	return (
 		<PanelBody
 			className={ baseClassName }
-			title={ getTitle( panelTitleClassName, title, [ backgroundColorAreaProps, textColorAreaProps ] ) }
+			title={ getTitle( panelTitleClassName, title, [ backgroundColorIndicatorProps, textColorIndicatorProps ] ) }
 		>
 			<BaseControl
-				label={ getTitle( controlTitleClassName, __( 'Background Color' ), [ backgroundColorAreaProps ] ) } >
+				label={ getTitle( controlTitleClassName, __( 'Background Color' ), [ backgroundColorIndicatorProps ] ) } >
 				<ColorPalette className={ colorPaletteClassName } { ...backgroundColorProps } />
 			</BaseControl>
 
-			<BaseControl label={ getTitle( controlTitleClassName, __( 'Text Color' ), [ textColorAreaProps ] ) } >
+			<BaseControl label={ getTitle( controlTitleClassName, __( 'Text Color' ), [ textColorIndicatorProps ] ) } >
 				<ColorPalette className={ colorPaletteClassName } { ...textColorProps } />
 			</BaseControl>
 
