@@ -1,74 +1,29 @@
 /**
- * External dependencies
- */
-import { pick } from 'lodash';
-
-/**
  * WordPress dependencies
  */
 import {
 	PanelBody,
-	BaseControl,
-	ColorIndicator,
 } from '@wordpress/components';
-import { Fragment } from '@wordpress/element';
 import { ifCondition, compose } from '@wordpress/compose';
-import { sprintf } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import './style.scss';
-import ColorPalette from '../color-palette';
+import ColorPaletteControl from '../color-palette/control';
+import TextWithColorIndicators from '../text-with-color-indicators';
 import withColorContext from '../color-palette/with-color-context';
-import { getColorName } from '../colors';
-
-const ColorIndicatorWithColorContext = withColorContext( ( { value, colorIndicatorAriaLabel, colors } ) => {
-	if ( ! value ) {
-		return null;
-	}
-
-	const colorName = getColorName( colors, value );
-
-	return (
-		<ColorIndicator
-			colorValue={ value }
-			ariaLabel={ sprintf( colorIndicatorAriaLabel, colorName || value ) }
-		/>
-	);
-} );
-
-const ColorPaletteControl = ( { label, ...settings } ) => {
-	const labelElement = (
-		<Fragment>
-			{ label }
-			{ <ColorIndicatorWithColorContext { ...settings } /> }
-		</Fragment>
-	);
-
-	return (
-		<BaseControl
-			label={ labelElement } >
-			<ColorPalette
-				className="editor-panel-color-settings__color-palette"
-				{ ...pick( settings, [ 'value', 'onChange' ] ) }
-			/>
-		</BaseControl>
-	);
-};
 
 export function PanelColorSettings( { title, colorSettings, children } ) {
 	const className = 'editor-panel-color-settings';
 
 	const titleElement = (
-		<span className={ `${ className }__panel-title` }>
+		<TextWithColorIndicators
+			className={ `${ className }__panel-title` }
+			colorSettings={ colorSettings }
+		>
 			{ title }
-			{ colorSettings.map(
-				( settings, index ) => (
-					<ColorIndicatorWithColorContext key={ index } { ...settings } />
-				)
-			) }
-		</span>
+		</TextWithColorIndicators>
 	);
 
 	return (
