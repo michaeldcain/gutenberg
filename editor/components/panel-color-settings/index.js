@@ -43,7 +43,7 @@ const getTitle = ( className, title, colorIndicatorProps ) => (
 	</span>
 );
 
-export function PanelColorSettings( { title, colors, backgroundColorProps, textColorProps, contrastCheckerProps } ) {
+export function PanelColorSettings( { title, colors, backgroundColorProps, textColorProps, children } ) {
 	const baseClassName = 'editor-panel-color-settings';
 	const panelTitleClassName = `${ baseClassName }__panel-title`;
 	const controlTitleClassName = `${ baseClassName }__control-title`;
@@ -71,7 +71,7 @@ export function PanelColorSettings( { title, colors, backgroundColorProps, textC
 				<ColorPalette className={ colorPaletteClassName } { ...textColorProps } />
 			</BaseControl>
 
-			<ContrastChecker { ...contrastCheckerProps } />
+			{ children }
 		</PanelBody>
 	);
 }

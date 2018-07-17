@@ -23,6 +23,7 @@ import {
 	BlockControls,
 	BlockAlignmentToolbar,
 	InspectorControls,
+	ContrastChecker,
 	withColors,
 	PanelColorSettings,
 } from '@wordpress/editor';
@@ -123,14 +124,17 @@ class ButtonEdit extends Component {
 								value: backgroundColor.value,
 								onChange: setBackgroundColor,
 							} }
-							contrastCheckerProps={ {
-								isLargeText: true,
-								textColor: textColor.value,
-								backgroundColor: backgroundColor.value,
-								fallbackBackgroundColor,
-								fallbackTextColor,
-							} }
-						/>
+						>
+							<ContrastChecker
+								{ ...{
+									isLargeText: true,
+									textColor: textColor.value,
+									backgroundColor: backgroundColor.value,
+									fallbackBackgroundColor,
+									fallbackTextColor,
+								} }
+							/>
+						</PanelColorSettings>
 					</InspectorControls>
 				</span>
 				{ isSelected && (

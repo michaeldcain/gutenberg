@@ -28,6 +28,7 @@ import {
 	InspectorControls,
 	PanelColorSettings,
 	RichText,
+	ContrastChecker,
 } from '@wordpress/editor';
 import { createBlock, getPhrasingContentSchema } from '@wordpress/blocks';
 import { compose } from '@wordpress/compose';
@@ -241,14 +242,17 @@ class ParagraphBlock extends Component {
 							value: backgroundColor.value,
 							onChange: setBackgroundColor,
 						} }
-						contrastCheckerProps={ {
-							isLargeText: fontSize >= 18,
-							textColor: textColor.value,
-							backgroundColor: backgroundColor.value,
-							fallbackTextColor,
-							fallbackBackgroundColor,
-						} }
-					/>
+					>
+						<ContrastChecker
+							{ ...{
+								isLargeText: fontSize >= 18,
+								textColor: textColor.value,
+								backgroundColor: backgroundColor.value,
+								fallbackTextColor,
+								fallbackBackgroundColor,
+							} }
+						/>
+					</PanelColorSettings>
 				</InspectorControls>
 				<RichText
 					tagName="p"
