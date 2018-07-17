@@ -15,21 +15,20 @@ describe( 'PanelColorSettings', () => {
 			<PanelColorSettings
 				title="Test Title"
 				colors={ [] }
-				backgroundColorProps={ {
-					value: '#000',
-					onChange: noop,
-				} }
-				textColorProps={ {
-					value: '#111',
-					onChange: noop,
-				} }
-				contrastCheckerProps={ {
-					isLargeText: false,
-					textColor: '#111',
-					backgroundColor: '#000',
-					fallbackTextColor: '#000',
-					fallbackBackgroundColor: '#fff',
-				} }
+				colorSettings={ [
+					{
+						value: '#000',
+						onChange: noop,
+						colorIndicatorAriaLabel: 'black',
+						label: 'black color',
+					},
+					{
+						value: '#111',
+						onChange: noop,
+						colorIndicatorAriaLabel: 'nearly black',
+						label: 'nearly black color',
+					},
+				] }
 			/>
 		);
 

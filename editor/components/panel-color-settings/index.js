@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import { pick } from 'lodash';
+
+/**
  * WordPress dependencies
  */
 import {
@@ -7,27 +12,26 @@ import {
 	ColorIndicator,
 } from '@wordpress/components';
 import { ifCondition, compose } from '@wordpress/compose';
-import { __, sprintf } from '@wordpress/i18n';
+import { sprintf } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import './style.scss';
-import ContrastChecker from '../contrast-checker';
 import ColorPalette from '../color-palette';
 import withColorContext from '../color-palette/with-color-context';
 import { getColorName } from '../colors';
 
-const getColorIndicatorProps = ( colors, colorValue, ariaLabelTemplate ) => {
-	if ( ! colorValue ) {
+const getColorIndicatorProps = ( colors, { value, colorIndicatorAriaLabel } ) => {
+	if ( ! value ) {
 		return;
 	}
 
-	const colorName = getColorName( colors, colorValue );
+	const colorName = getColorName( colors, value );
 
 	return {
-		colorValue,
-		ariaLabel: sprintf( ariaLabelTemplate, colorName || colorValue ),
+		colorValue: value,
+		ariaLabel: sprintf( colorIndicatorAriaLabel, colorName || value ),
 	};
 };
 
@@ -43,33 +47,41 @@ const getTitle = ( className, title, colorIndicatorProps ) => (
 	</span>
 );
 
-export function PanelColorSettings( { title, colors, backgroundColorProps, textColorProps, children } ) {
+const ColorPalleteControl = ( { label, colors, ...settings } ) => {
+	const colorIndicatorProps = getColorIndicatorProps( colors, settings );
+	const labelElement = getTitle( 'editor-panel-color-settings__color-pallete', label, [ colorIndicatorProps ] );
+
+	return (
+		<BaseControl
+			label={ labelElement } >
+			<ColorPalette
+				className="editor-panel-color-settings__color-pallete"
+				{ ...pick( settings, [ 'value', 'onChange' ] ) }
+			/>
+		</BaseControl>
+	);
+};
+
+export function PanelColorSettings( { title, colors, colorSettings, children } ) {
 	const baseClassName = 'editor-panel-color-settings';
 	const panelTitleClassName = `${ baseClassName }__panel-title`;
-	const controlTitleClassName = `${ baseClassName }__control-title`;
-	const colorPaletteClassName = `${ baseClassName }__color-palette`;
 
-	// translators: %s: The name of the color e.g: "vivid red" or color hex code if name is not available e.g: "#f00".
-	const backgroundAriaLabelTemplate = __( '(current background color: %s)' );
-	const backgroundColorIndicatorProps = getColorIndicatorProps( colors, backgroundColorProps.value, backgroundAriaLabelTemplate );
-
-	// translators: %s: The name of the color e.g: "vivid red" or color hex code if name is not available e.g: "#f00".
-	const textAriaLabelTemplate = __( '(current text color: %s)' );
-	const textColorIndicatorProps = getColorIndicatorProps( colors, textColorProps.value, textAriaLabelTemplate );
+	const titleColorIndicatorProps = colorSettings.map( ( settings ) => {
+		return getColorIndicatorProps( colors, settings );
+	} );
 
 	return (
 		<PanelBody
 			className={ baseClassName }
-			title={ getTitle( panelTitleClassName, title, [ backgroundColorIndicatorProps, textColorIndicatorProps ] ) }
+			title={ getTitle( panelTitleClassName, title, titleColorIndicatorProps ) }
 		>
-			<BaseControl
-				label={ getTitle( controlTitleClassName, __( 'Background Color' ), [ backgroundColorIndicatorProps ] ) } >
-				<ColorPalette className={ colorPaletteClassName } { ...backgroundColorProps } />
-			</BaseControl>
 
-			<BaseControl label={ getTitle( controlTitleClassName, __( 'Text Color' ), [ textColorIndicatorProps ] ) } >
-				<ColorPalette className={ colorPaletteClassName } { ...textColorProps } />
-			</BaseControl>
+			{ colorSettings.map( ( settings, index ) => (
+				<ColorPalleteControl
+					key={ index }
+					colors={ colors }
+					{ ...settings } />
+			) ) }
 
 			{ children }
 		</PanelBody>

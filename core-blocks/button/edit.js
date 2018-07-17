@@ -116,14 +116,22 @@ class ButtonEdit extends Component {
 					<InspectorControls>
 						<PanelColorSettings
 							title={ __( 'Color Settings' ) }
-							textColorProps={ {
-								value: textColor.value,
-								onChange: setTextColor,
-							} }
-							backgroundColorProps={ {
-								value: backgroundColor.value,
-								onChange: setBackgroundColor,
-							} }
+							colorSettings={ [
+								{
+									value: backgroundColor.value,
+									onChange: setBackgroundColor,
+									label: __( 'Background Color' ),
+									// translators: %s: The name of the color e.g: "vivid red" or color hex code if name is not available e.g: "#f00".
+									colorIndicatorAriaLabel: __( '(current background color: %s)' ),
+								},
+								{
+									value: textColor.value,
+									onChange: setTextColor,
+									label: __( 'Text Color' ),
+									// translators: %s: The name of the color e.g: "vivid red" or color hex code if name is not available e.g: "#f00".
+									colorIndicatorAriaLabel: __( '(current text color: %s)' ),
+								},
+							] }
 						>
 							<ContrastChecker
 								{ ...{
