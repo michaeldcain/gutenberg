@@ -8,10 +8,7 @@ import { compact, flatMap, forEach, get, has, includes, map, noop, startsWith } 
  */
 import deprecated from '@wordpress/deprecated';
 import { __, sprintf } from '@wordpress/i18n';
-
-/**
- * WordPress dependencies
- */
+import { select } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -32,6 +29,7 @@ export function getMimeTypesArray( wpMimeTypesObject ) {
 		version: '3.5',
 		plugin: 'Gutenberg',
 	} );
+
 	if ( ! wpMimeTypesObject ) {
 		return wpMimeTypesObject;
 	}
@@ -70,7 +68,8 @@ export function mediaUpload( {
 		plugin: 'Gutenberg',
 	} );
 
-	maxUploadFileSize = maxUploadFileSize || get( window, [ '_wpMediaSettings', 'maxUploadSize' ], 0 );
+	const editorSettings = select( 'core/editor' ).getSettings();
+	maxUploadFileSize = maxUploadFileSize || editorSettings.maxUploadFileSize;
 
 	// Cast filesList to array
 	const files = [ ...filesList ];
@@ -87,7 +86,7 @@ export function mediaUpload( {
 	};
 
 	// Allowed types for the current WP_User
-	const allowedMimeTypesForUser = getMimeTypesArray( get( window, [ '_wpMediaSettings', 'allowedMimeTypes' ] ) );
+	const allowedMimeTypesForUser = getMimeTypesArray( editorSettings.allowedMimeTypes );
 	const isAllowedMimeTypeForUser = ( fileType ) => {
 		return includes( allowedMimeTypesForUser, fileType );
 	};

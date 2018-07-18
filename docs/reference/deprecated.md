@@ -14,6 +14,9 @@ Gutenberg's deprecation policy is intended to support backwards-compatibility fo
  - `wp.utils.decodeEntities` has been removed. Please use `wp.htmlEntities.decodeEntities` instead.
  - All references to a block's `uid` have been replaced with equivalent props and selectors for `clientId`.
  - The `MediaPlaceholder` component `onSelectUrl` prop has been renamed to `onSelectURL`.
+ - `wp.utils.getMimeTypesArray` has been removed.
+ - `wp.utils.mediaUpload` has been removed. Please use `wp.editor.editorMediaUpload` instead.
+ - `wp.utils.preloadImage` has been removed.
 
 ## 3.4.0
 

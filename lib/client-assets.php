@@ -213,7 +213,15 @@ function gutenberg_register_scripts_and_styles() {
 	wp_register_script(
 		'wp-utils',
 		gutenberg_url( 'build/utils/index.js' ),
-		array( 'lodash', 'wp-api-fetch', 'wp-deprecated', 'wp-html-entities', 'wp-i18n', 'wp-keycodes' ),
+		array(
+			'lodash',
+			'wp-api-fetch',
+			'wp-deprecated',
+			'wp-html-entities',
+			'wp-i18n',
+			'wp-keycodes',
+			'wp-editor',
+		),
 		filemtime( gutenberg_dir_path() . 'build/utils/index.js' ),
 		true
 	);
@@ -430,7 +438,6 @@ function gutenberg_register_scripts_and_styles() {
 			'wp-keycodes',
 			'wp-element',
 			'wp-plugins',
-			'wp-utils',
 			'wp-viewport',
 			'wp-tinymce',
 			'tinymce-latest-lists',
@@ -1065,6 +1072,7 @@ function gutenberg_editor_scripts_and_styles( $hook ) {
 	// https://github.com/WordPress/gutenberg/issues/5667.
 	add_filter( 'user_can_richedit', '__return_true' );
 
+	wp_enqueue_script( 'wp-utils' );
 	wp_enqueue_script( 'wp-edit-post' );
 
 	global $post;
@@ -1226,7 +1234,7 @@ function gutenberg_editor_scripts_and_styles( $hook ) {
 		'bodyPlaceholder'     => apply_filters( 'write_your_story', __( 'Write your story', 'gutenberg' ), $post ),
 		'isRTL'               => is_rtl(),
 		'autosaveInterval'    => 10,
-		'maxUploadSize'       => $max_upload_size,
+		'maxUploadFileSize'   => $max_upload_size,
 		'allowedMimeTypes'    => get_allowed_mime_types(),
 	);
 
