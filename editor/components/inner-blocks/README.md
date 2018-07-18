@@ -7,7 +7,7 @@ Refer to the [implementation of the Columns block](https://github.com/WordPress/
 
 ## Usage
 
-In a block's `edit` implementation, render `InnerBlocks`, optionally with `layouts` of available nest areas:
+In a block's `edit` implementation, render `InnerBlocks`.
 
 Then, in the `save` implementation, render `InnerBlocks.Content`. This will be replaced automatically with the content of the nested blocks.
 
@@ -36,7 +36,7 @@ registerBlockType( 'my-plugin/my-block', {
 } );
 ```
 
-_Note:_ A block can render at most a single `InnerBlocks` and `InnerBlocks.Content` element in `edit` and `save` respectively. To create distinct arrangements of nested blocks, refer to the `layouts` prop documented below.
+_Note:_ A block can render at most a single `InnerBlocks` and `InnerBlocks.Content` element in `edit` and `save` respectively. To create distinct arrangements of nested blocks, you can create an intermediary block which exists only as a wrapper of its own child blocks.
 
 _Note:_ Because the save step will automatically apply props to the element returned by `save`, it is important to include the wrapping `div` in the above simple example even though we are applying no props of our own. In a real-world example, you may have your own attributes to apply to the saved markup, or sibling content adjacent to the rendered nested blocks.
 
@@ -103,23 +103,3 @@ Template locking allows locking the `InnerBlocks` area for the current template.
 If locking is not set in an `InnerBlocks` area: the locking of the parent `InnerBlocks` area is used.
 
 If the block is a top level block: the locking of the Custom Post Type is used.
-
-### `layouts`
-* **Type:** `Array<Object>|Object`
-
-To achieve distinct arrangements of nested blocks, you may assign layout as an object. When assigned, the rendered output will assign a layout-specific class which can be used in your block stylesheet to effect the visual arrangement of nested blocks.
-
-A layout is an object where each key is the slug of the layout (used also in the applied class to the block), and its value an object consisting of:
-
-- Icon (`icon: string`): The slug of the Dashicon to use in controls presented to the user in moving between layouts
-   - Reference: https://developer.wordpress.org/resource/dashicons/
-- Label (`label: string`): The text to display in the controls presented to the user in moving between layouts
-
-**Example:**
-
-```jsx
-<InnerBlocks layouts={ {
-	normal: { label: 'Normal Width', icon: 'align-center' },
-	wide: { label: 'Width Width', icon: 'align-wide' },
-} } />
-```
